@@ -920,7 +920,7 @@ function ResumePage({ showToast }) {
     const reader = new FileReader();
     reader.onload = async (e) => {
       const base64 = e.target.result;
-      const BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const BASE = process.env.REACT_APP_API_URL || import.meta.env.VITE_API_URL || 'http://localhost:5000';
       const res = await fetch(`${BASE}/api/resume/upload`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
