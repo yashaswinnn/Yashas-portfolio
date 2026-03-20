@@ -4,6 +4,7 @@ import { contactApi, projectsApi, aboutApi, resumeApi } from '../../services/api
 import { useProjects } from '../../hooks/useProjects';
 
 // ── STYLES ────────────────────────────────────────────────────
+const API_BASE = 'https://yashas-backend.vercel.app';
 const CSS = `
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
 
@@ -564,7 +565,7 @@ function MessagesPage({ messages, setMessages, showToast }) {
   const [sel, setSel] = useState(null);
   const [refreshing, setRefreshing] = useState(false);
   const m = messages.find(x => x._id === sel);
-  const BASE = process.env.REACT_APP_API_URL || import.meta.env.VITE_API_URL || 'http://localhost:5000';
+  const BASE = API_BASE;
 
   const markRead = async id => {
     try {
@@ -920,7 +921,7 @@ function ResumePage({ showToast }) {
     const reader = new FileReader();
     reader.onload = async (e) => {
       const base64 = e.target.result;
-      const BASE = process.env.REACT_APP_API_URL || import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const BASE = API_BASE;
       const res = await fetch(`${BASE}/api/resume/upload`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -1000,7 +1001,7 @@ function SettingsPage({ showToast }) {
     if (nw.length < 4) { showToast('Too short (min 4)', 'error'); return; }
     setSaving(true);
     try {
-      const BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const BASE = API_BASE;
       const res = await fetch(`${BASE}/api/admin/change-password`, {
         method:'POST', headers:{'Content-Type':'application/json'},
         body: JSON.stringify({ currentPassword:cur, newPassword:nw })
@@ -1049,7 +1050,7 @@ const [sidebarOpen, setSidebarOpen] = useState(false);
   useEffect(() => {
     const check = async () => {
       try {
-        const BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+       const BASE = API_BASE;
         const r = await fetch(`${BASE}/api/health`, { signal:AbortSignal.timeout(3000) });
         setBackendOnline(r.ok);
       } catch { setBackendOnline(false); }
