@@ -922,11 +922,16 @@ function ResumePage({ showToast }) {
     reader.onload = async (e) => {
       const base64 = e.target.result;
       const BASE = API_BASE;
-      const res = await fetch(`${BASE}/api/resume/upload`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ base64, filename: file.name })
-      });
+      const token = localStorage.getItem('adminToken'); // ✅ ADD THIS
+
+const res = await fetch(`${BASE}/api/resume/upload`, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}` // ✅ ADD THIS
+  },
+  body: JSON.stringify({ base64, filename: file.name })
+});
       const data = await res.json();
       if (data.success) {
         setUrl(data.data.url);
