@@ -1,5 +1,6 @@
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 import { AuthProvider } from './context/AuthContext';
 import Cursor from './components/Cursor';
 
@@ -47,6 +48,7 @@ export default function App() {
           <Route path="/admin" element={<Navigate to="/" replace />} />
         </Routes>
       </Suspense>
+      <Analytics />
     </>
   );
 }
