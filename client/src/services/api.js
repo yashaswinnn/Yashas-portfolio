@@ -1,7 +1,7 @@
 // =============================================
 // API Base Configuration
 // =============================================
-const BASE_URL = 'https://yashas-backend.vercel.app';
+const BASE_URL = 'https://yashas-backend.vercel.app'
 
 // Helper: make authenticated headers
 const authHeaders = () => {
