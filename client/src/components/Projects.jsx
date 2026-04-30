@@ -5,10 +5,37 @@ import { Link, useNavigate } from 'react-router-dom';
 const FALLBACK = [
   { title: 'AI-Based Resume Builder', tags: ['Streamlit','Python','Parsing'], image: '/project2.png', link: '/airesume' },
   { title: 'Diabetic Retinopathy Detection System', tags: ['Streamlit','TensorFlow','CNN'], image: '/project1.png', link: '/diabetic' },
+  { title: 'KnightForge - Real-Time Chess Platform', tags: ['React','Node.js','Socket.io'], image: '/knightforge.png', link: 'https://knight-forge.vercel.app/' },
   { title: 'TypFlux – Modern Typing Speed Test Platform', tags: ['Tailwind','JavaScript','React'], image: '/project3.png', link: 'https://typflux.vercel.app/' },
 ];
 
 const COLORS = ['#f472b6','#a78bfa','#38bdf8','#34d399','#fb923c','#e879f9'];
+
+function normalizeTitle(title = '') {
+  return title.toLowerCase().replace(/[–—]/g, '-').replace(/\s+/g, ' ').trim();
+}
+
+function normalizeImage(project) {
+  return {
+    ...project,
+    image: !project.image ? '' :
+           project.image.startsWith('http') ? project.image :
+           project.image.startsWith('data:') ? project.image :
+           project.image.startsWith('./') ? project.image.replace('./', '/') :
+           project.image.startsWith('/') ? project.image :
+           '/' + project.image
+  };
+}
+
+function mergeProjects(primary, secondary) {
+  const byTitle = new Map();
+  primary.forEach(project => byTitle.set(normalizeTitle(project.title), project));
+  secondary.forEach(project => {
+    const key = normalizeTitle(project.title);
+    byTitle.set(key, { ...byTitle.get(key), ...project });
+  });
+  return Array.from(byTitle.values());
+}
 
 function getCFG(project, index) {
   const rc = COLORS[index % COLORS.length];
@@ -29,16 +56,8 @@ export default function Projects() {
       .then(r => r.json())
       .then(data => {
         if (data.data && data.data.length) {
-          const mapped = data.data.map(p => ({
-            ...p,
-            image: !p.image ? '' :
-                   p.image.startsWith('http') ? p.image :
-                   p.image.startsWith('data:') ? p.image :
-                   p.image.startsWith('./') ? p.image.replace('./', '/') :
-                   p.image.startsWith('/') ? p.image :
-                   '/' + p.image
-          }));
-          setProjects(mapped);
+          const mapped = data.data.map(normalizeImage);
+          if (mapped.length) setProjects(mergeProjects(FALLBACK, mapped));
         }
       })
       .catch(err => console.error('Fetch error:', err));
