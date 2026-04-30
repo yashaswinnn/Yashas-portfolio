@@ -16,7 +16,6 @@ export default function Navbar() {
       <ul className="nav-links">
         <li><a href="#about">About</a></li>
         <li><a href="#skills">Skills</a></li>
-        <li><a href="#timeline">Journey</a></li>
         <li><a href="#gallery">Work</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>

@@ -1,10 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 
 export default function AIResume() {
   useScrollReveal();
-  useEffect(() => { window.scrollTo(0,0); }, []);
   const [lightbox, setLightbox] = useState(null);
 
   const stats = [

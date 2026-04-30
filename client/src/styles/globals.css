@@ -473,6 +473,13 @@ footer.main-footer {
   .tl-year, .tl-item:nth-child(even) .tl-year { text-align: left; }
 }
 @media (max-width: 500px) {
+  .loader-logo {
+    width: 100%;
+    padding: 0 24px;
+    text-align: center;
+    line-height: 1.15;
+    font-size: clamp(1.75rem, 10vw, 2.6rem);
+  }
   .sk-cards-grid { grid-template-columns: 1fr; }
 }
 

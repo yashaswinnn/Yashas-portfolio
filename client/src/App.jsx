@@ -1,6 +1,7 @@
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 import { AuthProvider } from './context/AuthContext';
+import { ScrollProvider } from './context/ScrollContext';
 import Cursor from './components/Cursor';
 
 const Home = lazy(() => import('./pages/Home'));
@@ -29,7 +30,7 @@ const PageLoader = () => (
   </div>
 );
 
-export default function App() {
+function AppContent() {
   const location = useLocation();
   const showCursor = location.pathname === '/';
 
@@ -48,5 +49,13 @@ export default function App() {
         </Routes>
       </Suspense>
     </>
+  );
+}
+
+export default function App() {
+  return (
+    <ScrollProvider>
+      <AppContent />
+    </ScrollProvider>
   );
 }

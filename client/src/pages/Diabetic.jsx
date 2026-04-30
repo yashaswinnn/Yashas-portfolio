@@ -1,10 +1,8 @@
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 
 export default function Diabetic() {
   useScrollReveal();
-  useEffect(() => { window.scrollTo(0,0); }, []);
 
   const stats = [
     { n:'57.05%', l:'Severe DR Confidence (Demo)' },
@@ -77,7 +75,7 @@ export default function Diabetic() {
 
       <div style={{ padding:'0 60px 80px', maxWidth:'1220px', margin:'0 auto' }}>
         <div style={{ borderRadius:'20px',overflow:'hidden',border:'1px solid rgba(124,58,237,0.2)',boxShadow:'0 40px 100px rgba(0,0,0,0.6)',maxWidth:'700px',margin:'0 auto' }}>
-          <img src="https://pub-1407f82391df4ab1951418d04be76914.r2.dev/uploads/cc7e08a3-5f77-44ae-b246-59c8043e0248.jpeg" alt="Dashboard" style={{ width:'100%',display:'block',objectFit:'contain',maxHeight:'500px' }} />
+          <img src="/diabetic-dashboard.png" alt="Dashboard" style={{ width:'100%',display:'block',objectFit:'contain',maxHeight:'500px' }} />
         </div>
       </div>
 
