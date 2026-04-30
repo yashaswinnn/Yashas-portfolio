@@ -6,6 +6,7 @@ const ScrollContext = createContext();
 export const ScrollProvider = ({ children }) => {
   const location = useLocation();
   const [showHero, setShowHero] = useState(true);
+  const [showLoader, setShowLoader] = useState(true);
   const scrollPositions = useRef({});
   const prevPathname = useRef('/');
 
@@ -27,8 +28,9 @@ export const ScrollProvider = ({ children }) => {
     if (location.pathname === '/') {
       // Navigating to home page
       if (prevPathname.current !== '/' && scrollPositions.current['/']) {
-        // Coming from project page - hide hero and restore scroll
-        setShowHero(false);
+        // Coming from project page - keep hero available above, but skip intro loader.
+        setShowHero(true);
+        setShowLoader(false);
         setTimeout(() => {
           window.scrollTo(0, scrollPositions.current['/']);
         }, 50);
@@ -37,11 +39,13 @@ export const ScrollProvider = ({ children }) => {
       } else {
         // First time on home or fresh load - show hero
         setShowHero(true);
+        setShowLoader(true);
         window.scrollTo(0, 0);
       }
     } else {
       // Navigating to project page - scroll to top
       setShowHero(true);
+      setShowLoader(false);
       setTimeout(() => {
         window.scrollTo(0, 0);
       }, 50);
@@ -51,7 +55,7 @@ export const ScrollProvider = ({ children }) => {
   }, [location.pathname]);
 
   return (
-    <ScrollContext.Provider value={{ showHero }}>
+    <ScrollContext.Provider value={{ showHero, showLoader }}>
       {children}
     </ScrollContext.Provider>
   );
@@ -60,7 +64,7 @@ export const ScrollProvider = ({ children }) => {
 export const useScrollContext = () => {
   const context = useContext(ScrollContext);
   if (!context) {
-    return { showHero: true };
+    return { showHero: true, showLoader: true };
   }
   return context;
 };

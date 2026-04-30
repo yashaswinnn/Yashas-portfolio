@@ -13,11 +13,11 @@ import { useScrollContext } from '../context/ScrollContext';
 
 export default function Home() {
   useScrollReveal();
-  const { showHero } = useScrollContext();
+  const { showHero, showLoader } = useScrollContext();
 
   return (
     <div className="home-page">
-      {showHero && <Loader />}
+      {showLoader && <Loader />}
       {showHero && <Navbar />}
       <ScrollProgress />
       
