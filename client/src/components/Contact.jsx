@@ -32,7 +32,7 @@ export default function Contact() {
         <div className="contact-header">
           <span className="section-label reveal">Get In Touch</span>
           <h2 className="section-title reveal reveal-delay-1">Start a <span className="grad-text">conversation</span></h2>
-          <p className="section-body reveal reveal-delay-2" style={{ marginBottom: 0 }}>Tell us about your project and I'll respond within 24 hours.</p>
+          <p className="section-body reveal reveal-delay-2" style={{ marginBottom: 0 }}>contack me 6360167744</p>
         </div>
         <form onSubmit={handleSubmit} className="reveal reveal-delay-2">
           <div className="form-group">
@@ -45,7 +45,7 @@ export default function Contact() {
           </div>
           <div className="form-group">
             <label>Your Message</label>
-            <textarea value={form.message} onChange={e => setForm({...form, message: e.target.value})} placeholder="Tell us about your project..." required />
+            <textarea value={form.message} onChange={e => setForm({...form, message: e.target.value})} placeholder="contack me 6360167744" required />
           </div>
           <button type="submit" className="form-submit" disabled={sending}>
             {sending ? 'Sending...' : 'Send Message'}
